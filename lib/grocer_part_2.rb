@@ -9,11 +9,19 @@ def apply_coupons(cart, coupons)
     if found_coupon
       if grocery_item[:count] >= found_coupon[:count]
         grocery_item[:count] = grocery_item[:count] - found_coupon[:count]
+<<<<<<< HEAD
+=======
+        end
+>>>>>>> cf1340be901e9fe5388b166da2f5cb4f8f669ff0
         found_coupon[:clearance] = grocery_item[:clearance]
         cart << found_coupon
       end
     end
   end
+<<<<<<< HEAD
+=======
+  pp cart
+>>>>>>> cf1340be901e9fe5388b166da2f5cb4f8f669ff0
 end
 
 #return hash of coupon
