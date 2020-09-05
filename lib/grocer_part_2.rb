@@ -24,7 +24,7 @@ def apply_coupons(cart, coupons)
           cart_item[:count] -= coupons[counter][:num]
         end
       end
-    counter =+ 1 
+    counter += 1 
   end
   cart
 end
@@ -34,9 +34,9 @@ def apply_clearance(cart)
   #
   # REMEMBER: This method **should** update cart
   counter = 0 
-  while counter > cart.length 
-  if cart[counter][:clearance]
-     cart_item[:price] = (cart_item[:price] - (cart_item[:price] * 0.20)).round(2)
+  while counter < cart.length 
+   if cart[counter][:clearance]
+     cart[counter][:price] = (cart[counter][:price] - (cart[counter][:price] * 0.20)).round(2)
    end
   counter += 1
   end 
@@ -53,17 +53,19 @@ def checkout(cart, coupons)
   #
   # BEFORE it begins the work of calculating the total (or else you might have
   # some irritated customers
+  
   consolidated_cart = consolidate_cart(cart)
   couponed_cart = apply_coupons(consolidated_cart, coupons)
-  final_cart = apply_clearance(consolidated_cart)
+  final_cart = apply_clearance(couponed_cart)
+
   total = 0 
   counter = 0 
-   while counter < final_cart.size 
-   total += final_cart[counter][:price] * final_cart[counter][:count]
- counter += 1 
+   while counter < final_cart.length 
+    total += final_cart[counter][:price] * final_cart[counter][:count]
+     counter += 1 
+     end
+  if total > 100
+    total -= (total * 0.10)
   end
- if total > 100
-   total -= (total * 0.10)
- end
-total
-end 
+ total
+end
